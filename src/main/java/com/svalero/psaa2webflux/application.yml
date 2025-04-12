@@ -1,0 +1,9 @@
+server:
+  port: 8081
+
+api:
+  base-url: https://api.clashofclans.com/v1/
+
+logging:
+  level:
+    org.springframework.web.reactive.function.client: DEBUG
