@@ -9,6 +9,8 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @Service
@@ -59,8 +61,8 @@ public class RankingService {
                 .flatMap(topClan -> {
                     String tag = topClan.getTag();
                     // Url encode # to %23, api requirement
-                    tag = tag.replaceAll("#", "%23");
-                    return getMembersTopClan(tag)
+                    String decodedTag = URLDecoder.decode(tag, StandardCharsets.UTF_8);
+                    return getMembersTopClan(decodedTag)
                             .collectList() // convert Flux<Member> to Mono<List<Member>>
                             .map(members -> {
                                 String badgeUrl = "";
